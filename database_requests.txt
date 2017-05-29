@@ -1,5 +1,11 @@
-db.getCollection("students").find({ "scores": { $elemMatch: { "score": { $gt: 87.0, $lt: 93 } } } })
+mongoimport --db studentsDb --collection students --file dataSample.json --jsonArray
 
-db.getCollection("students").aggregate([ {$unwind: "$scores"}, { $match: { "scores.type": "exam" } } ])
+mongo
 
-db.getCollection("students").update({ "name": "Dusti Lemmond" },{"$set": { "accepted": true }, { multi: true} })
+use studentsDb
+
+db.students.find({ "scores": { $elemMatch: { "score": { $gt: 87.0, $lt: 93 } } } })
+
+db.students.aggregate([ {$unwind: "$scores"}, { $match: { "scores.type": "exam" } } ])
+
+db.students.update({ "name": "Dusti Lemmond" },{"$set": { "accepted": true }, { multi: true} })
