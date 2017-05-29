@@ -1,0 +1,5 @@
+db.getCollection("students").find({ "scores": { $elemMatch: { "score": { $gt: 87.0, $lt: 93 } } } })
+
+db.getCollection("students").aggregate([ {$unwind: "$scores"}, { $match: { "scores.type": "exam" } } ])
+
+db.getCollection("students").update({ "name": "Dusti Lemmond" },{"$set": { "accepted": true }, { multi: true} })
